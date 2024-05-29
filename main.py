@@ -26,7 +26,8 @@ def scale_shape(shape, multiplier):
 
 
 def mirror_point(point, point_on_line, line_direction):
-    return point + 2 * ((np.eye(2, 2) - np.outer(line_direction, np.transpose(line_direction))) @ (point_on_line - point))
+    return point + 2 * ((np.eye(2, 2) - np.outer(line_direction, np.transpose(line_direction)))
+                        @ (point_on_line - point))
 
 
 def mirror_shape(shape, point_on_line, line_direction):
@@ -38,6 +39,19 @@ def mirror_shape(shape, point_on_line, line_direction):
     return result
 
 
+def shear_shape(shape, shear_matrix):
+    result = np.empty((np.shape(shape)[0], 2))
+    i = 0
+    for vector in shape:
+        result[i] = vector @ shear_matrix
+        i += 1
+    return result
+
+
+def transform_shape(shape, matrix):
+    return shape @ matrix
+
+
 batman = np.array([[0, 0], [1, 0.2], [0.4, 1], [0.5, 0.4], [0, 0.8], [-0.5, 0.4], [-0.4, 1], [-1, 0.2], [0, 0]])
-print(mirror_point(np.array([0, 0]), np.array([1, 1]), np.array([0, 1])))
+print(shear_shape(batman, np.array([[2, 1], [1, 1]])))
 print(mirror_shape(batman, np.array([1, 1]), np.array([0, 1])))

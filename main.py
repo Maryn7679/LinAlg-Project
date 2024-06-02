@@ -8,7 +8,7 @@ def rotate_point(point, angle):
     y1 = point[1]
 
     x2 = np.cos(angle) * x1 - np.sin(angle) * y1
-    y2 = np.sin(angle) * x1 - np.cos(angle) * y1
+    y2 = np.sin(angle) * x1 + np.cos(angle) * y1
 
     return np.array([x2, y2])
 
